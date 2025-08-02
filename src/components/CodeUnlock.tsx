@@ -9,13 +9,29 @@ interface CodeUnlockProps {
 
 const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
   const { toast } = useToast();
-  
+
   // Secret code order
-  const secretCode = ["Nam", "Linh", "Phat"];
-  
+  const secretCode = [
+  "toan.han",
+  "anh.nguyen22",
+  // "quan.dang1",
+  // "nam.ton",
+  // "nhi.nguyen16",
+  // "hung.nguyen32",
+  // "thao.huynh4",
+  // "linh.nguyen35",
+  // "quyen.hoang1",
+  // "phuong.hoang1",
+  // "anh.pham24",
+  // "huyen.truong",
+  // "khoi.le",
+  // "anh.nguyen80"
+];
+
   // Team members
-  const teamMembers = ["Nam", "Linh", "Phat", "Alex", "Sarah", "Mike", "Emma"];
-  
+  const teamMembers = ["toan.han", "quan.dang1", "quyen.hoang1", "phuong.hoang1", "thao.huynh4", "khoi.le", "trung.le9", "anh.nguyen80", "anh.nguyen22", "hung.nguyen32", "linh.nguyen35", "nhi.nguyen16", "anh.pham24", "nam.ton", "huyen.truong"]
+    ;
+
   const [selectedOrder, setSelectedOrder] = useState<string[]>([]);
   const [isUnlocked, setIsUnlocked] = useState(false);
 
@@ -26,22 +42,22 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
     } else {
       const newOrder = [...selectedOrder, name];
       setSelectedOrder(newOrder);
-      
+
       // Check if we have the right number of selections
       if (newOrder.length === secretCode.length) {
         // Check if the order is correct
         const isCorrect = newOrder.every((name, index) => name === secretCode[index]);
-        
+
         if (isCorrect) {
           setIsUnlocked(true);
           toast({
-            title: "🎉 Code Unlocked!",
-            description: "Perfect! You found the secret sequence!",
+            title: "🎉 Úm ba la!",
+            description: "Tuyệt đỉnh! Anh hẳn là một manager có tâm!",
           });
         } else {
           toast({
-            title: "❌ Oops, wrong order!",
-            description: "Try again with the correct sequence.",
+            title: "❌ Oops, chưa đúng rồi!",
+            description: "Anh có trí nhớ tốt không nhỉ?",
             variant: "destructive",
           });
           setSelectedOrder([]);
@@ -70,15 +86,15 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
   return (
     <div className="min-h-screen bg-gradient-soft flex flex-col items-center justify-center p-6">
       <div className="text-center mb-12">
-        <h1 className="text-6xl font-bold mb-4 animate-float bg-gradient-celebration bg-clip-text text-transparent">
+        {/* <h1 className="text-6xl font-bold mb-4 animate-float bg-gradient-celebration bg-clip-text text-transparent">
           🎂 Birthday Code Challenge 🎂
-        </h1>
+        </h1> */}
         <p className="text-xl text-muted-foreground mb-8">
-          Select the team members in the correct order to unlock the birthday wishes!
+          Trí nhớ tốt mở ra điều lành...
         </p>
-        <div className="text-lg text-primary font-semibold">
-          Hint: Think about the office seating arrangement... 🤔
-        </div>
+        {/* <div className="text-lg text-primary font-semibold">
+          Hint:... 🤔
+        </div> */}
       </div>
 
       <div className="bg-card rounded-3xl p-8 shadow-celebration max-w-4xl w-full">
@@ -108,8 +124,8 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
           <div className="text-sm text-muted-foreground">
             Selected: {selectedOrder.length} / {secretCode.length}
           </div>
-          
-          <div className="flex justify-center gap-4">
+
+          <div className="flex flex-wrap justify-center gap-4">
             <Button
               variant="outline"
               size="lg"
@@ -119,7 +135,7 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
               <RotateCcw className="w-5 h-5 mr-2" />
               Reset
             </Button>
-            
+
             <Button
               variant="celebration"
               size="lg"

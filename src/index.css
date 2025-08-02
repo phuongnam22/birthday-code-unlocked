@@ -27,7 +27,7 @@ All colors MUST be HSL.
     --secondary: 45 100% 85%;
     --secondary-foreground: 315 15% 10%;
 
-    --muted: 315 20% 95%;
+    --muted: 285 100% 85.4%;
     --muted-foreground: 315 10% 45%;
 
     /* Golden accent for special elements */
@@ -43,7 +43,7 @@ All colors MUST be HSL.
 
     /* Celebration gradients */
     --gradient-celebration: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-birthday: linear-gradient(45deg, hsl(var(--accent)), hsl(var(--secondary)));
+    --gradient-birthday: white;
     --gradient-soft: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
 
     /* Special effects */

@@ -1,7 +1,7 @@
+// BirthdayCarousel.tsx
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface BirthdayMessage {
   name: string;
@@ -14,9 +14,6 @@ interface BirthdayCarouselProps {
 }
 
 const BirthdayCarousel: React.FC<BirthdayCarouselProps> = ({ onBack }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
-
   const birthdayMessages: BirthdayMessage[] = [
     {
       name: "Nam",
@@ -55,23 +52,20 @@ const BirthdayCarousel: React.FC<BirthdayCarouselProps> = ({ onBack }) => {
     }
   ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [openedCards, setOpenedCards] = useState<Set<number>>(new Set());
+
   const handleCardClick = (index: number) => {
-    setFlippedCards(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
-      } else {
-        newSet.add(index);
-      }
-      return newSet;
-    });
+    setOpenedCards((prev) => new Set(prev).add(index));
   };
 
   const nextCard = () => {
+    setOpenedCards(new Set());
     setCurrentIndex((prev) => (prev + 1) % birthdayMessages.length);
   };
 
   const prevCard = () => {
+    setOpenedCards(new Set());
     setCurrentIndex((prev) => (prev - 1 + birthdayMessages.length) % birthdayMessages.length);
   };
 
@@ -87,106 +81,76 @@ const BirthdayCarousel: React.FC<BirthdayCarouselProps> = ({ onBack }) => {
           <ArrowLeft className="w-5 h-5 mr-2" />
           Back to Code
         </Button>
-        
-        <h1 className="text-4xl font-bold bg-gradient-celebration bg-clip-text text-transparent animate-float">
-          🎊 Birthday Wishes 🎊
-        </h1>
-        
+
         <div className="text-lg text-muted-foreground">
           {currentIndex + 1} / {birthdayMessages.length}
         </div>
       </div>
 
       <div className="flex-1 flex items-center justify-center">
-        <div className="relative w-full max-w-6xl">
-          <div className="flex items-center justify-center gap-8">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={prevCard}
-              className="rounded-full w-12 h-12 shadow-celebration"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </Button>
+        <div className="flex items-center gap-4">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={prevCard}
+            className="rounded-full w-12 h-12"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </Button>
 
-            <div className="flex gap-6 overflow-hidden justify-center items-center min-h-[400px]">
-              {birthdayMessages.map((msg, index) => {
-                const offset = index - currentIndex;
-                const isActive = index === currentIndex;
-                const isFlipped = flippedCards.has(index);
-                
-                return (
-                  <Card
-                    key={index}
-                    className={`
-                      relative transition-all duration-500 cursor-pointer
-                      ${isActive ? 'scale-100 z-10' : 'scale-75 opacity-50'}
-                      ${Math.abs(offset) > 1 ? 'hidden' : 'block'}
-                      ${isFlipped ? 'animate-flip' : ''}
-                      w-80 h-96 shadow-celebration hover:shadow-glow
-                    `}
-                    style={{
-                      transform: `translateX(${offset * 100}px) ${isActive ? 'scale(1)' : 'scale(0.75)'}`,
-                    }}
-                    onClick={() => handleCardClick(index)}
-                  >
-                    <CardContent className="p-0 h-full relative overflow-hidden rounded-lg">
-                      {!isFlipped ? (
-                        // Front side
-                        <div className="h-full bg-gradient-birthday flex flex-col items-center justify-center p-8 text-center">
-                          <div className="text-6xl mb-6 animate-bounce-gentle">
-                            {msg.emoji}
-                          </div>
-                          <h3 className="text-3xl font-bold text-accent-foreground mb-4">
-                            {msg.name}
-                          </h3>
-                          <p className="text-lg text-accent-foreground/80 font-medium">
-                            Click to reveal birthday message! 🎁
-                          </p>
-                        </div>
-                      ) : (
-                        // Back side with message
-                        <div className="h-full bg-white flex flex-col justify-center p-8 text-center">
-                          <div className="text-4xl mb-4 animate-celebration">
-                            🎂
-                          </div>
-                          <h3 className="text-2xl font-bold text-primary mb-6">
-                            From {msg.name}
-                          </h3>
-                          <p className="text-lg text-foreground leading-relaxed">
-                            {msg.message}
-                          </p>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={nextCard}
-              className="rounded-full w-12 h-12 shadow-celebration"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </Button>
+          <div
+            className="w-[90vw] max-w-[420px] h-[600px] bg-white rounded-2xl shadow-celebration flex flex-col justify-center items-center text-center p-6 cursor-pointer transition-opacity duration-500"
+            onClick={() => handleCardClick(currentIndex)}
+          >
+            {!openedCards.has(currentIndex) ? (
+              <div className="transition-opacity duration-500 opacity-100">
+                <div className="text-6xl mb-4 animate-bounce-gentle">
+                  {birthdayMessages[currentIndex].emoji}
+                </div>
+                <h3 className="text-3xl font-bold text-accent-foreground">
+                  {birthdayMessages[currentIndex].name}
+                </h3>
+              </div>
+            ) : (
+              <div className="transition-opacity duration-500 opacity-100">
+                <div className="text-4xl mb-4 animate-celebration">
+                  🎂
+                </div>
+                <h3 className="text-2xl font-bold text-primary mb-6">
+                  From {birthdayMessages[currentIndex].name}
+                </h3>
+                <p className="text-lg text-card-foreground leading-relaxed">
+                  {birthdayMessages[currentIndex].message}
+                </p>
+              </div>
+            )}
           </div>
+
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={nextCard}
+            className="rounded-full w-12 h-12"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </Button>
         </div>
       </div>
 
-      <div className="text-center mt-8">
+      <div className="text-center mt-4">
         <p className="text-muted-foreground text-lg">
-          Click on any card to reveal the birthday message! 🎉
+          Click to reveal each birthday message! 🎉
         </p>
-        <div className="flex justify-center gap-2 mt-4">
+        <div className="flex justify-center gap-2 mt-2">
           {birthdayMessages.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
+              onClick={() => {
+                setOpenedCards(new Set());
+                setCurrentIndex(index);
+              }}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentIndex ? 'bg-primary scale-125' : 'bg-muted'
+                index === currentIndex ? 'bg-primary scale-125' : 'bg-white'
               }`}
             />
           ))}
