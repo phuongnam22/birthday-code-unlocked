@@ -26,7 +26,8 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					glow: 'hsl(var(--primary-glow))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -84,11 +85,40 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'celebration': {
+					'0%, 100%': { transform: 'rotate(-3deg) scale(1)' },
+					'50%': { transform: 'rotate(3deg) scale(1.05)' }
+				},
+				'bounce-gentle': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'flip': {
+					'0%': { transform: 'rotateY(0deg)' },
+					'100%': { transform: 'rotateY(180deg)' }
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-20px)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'celebration': 'celebration 2s ease-in-out infinite',
+				'bounce-gentle': 'bounce-gentle 2s ease-in-out infinite',
+				'flip': 'flip 0.6s ease-in-out',
+				'float': 'float 3s ease-in-out infinite'
+			},
+			backgroundImage: {
+				'gradient-celebration': 'var(--gradient-celebration)',
+				'gradient-birthday': 'var(--gradient-birthday)',
+				'gradient-soft': 'var(--gradient-soft)'
+			},
+			boxShadow: {
+				'celebration': 'var(--shadow-celebration)',
+				'glow': 'var(--shadow-glow)'
 			}
 		}
 	},
