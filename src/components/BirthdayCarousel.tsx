@@ -146,14 +146,14 @@ const BirthdayCarousel: React.FC<BirthdayCarouselProps> = ({ onBack }) => {
                         </div>
                       ) : (
                         // Back side with message
-                        <div className="h-full bg-card flex flex-col justify-center p-8 text-center">
+                        <div className="h-full bg-white flex flex-col justify-center p-8 text-center">
                           <div className="text-4xl mb-4 animate-celebration">
                             🎂
                           </div>
                           <h3 className="text-2xl font-bold text-primary mb-6">
                             From {msg.name}
                           </h3>
-                          <p className="text-lg text-card-foreground leading-relaxed">
+                          <p className="text-lg text-foreground leading-relaxed">
                             {msg.message}
                           </p>
                         </div>
