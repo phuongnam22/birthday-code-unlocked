@@ -1,27 +1,39 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+import React, { useState } from 'react';
+import CodeUnlock from './components/CodeUnlock';
+import BirthdayCarousel from './components/BirthdayCarousel';
+import { AnimatePresence, motion } from 'framer-motion';
 
-const queryClient = new QueryClient();
+const App = () => {
+  const [showCarousel, setShowCarousel] = useState(false);
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+  return (
+    <div className="min-h-screen bg-[#f2f2f6] overflow-x-hidden flex flex-col items-center">
+
+      <AnimatePresence mode="wait">
+        {showCarousel ? (
+          <motion.div
+            key="carousel"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ duration: 0.4 }}
+          >
+            <BirthdayCarousel onBack={() => setShowCarousel(false)} />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="unlock"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ duration: 0.4 }}
+          >
+            <CodeUnlock onUnlock={() => setShowCarousel(true)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 export default App;

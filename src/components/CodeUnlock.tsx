@@ -24,12 +24,11 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
   // "phuong.hoang1",
   // "anh.pham24",
   // "huyen.truong",
-  // "khoi.le",
   // "anh.nguyen80"
 ];
 
   // Team members
-  const teamMembers = ["toan.han", "quan.dang1", "quyen.hoang1", "phuong.hoang1", "thao.huynh4", "khoi.le", "trung.le9", "anh.nguyen80", "anh.nguyen22", "hung.nguyen32", "linh.nguyen35", "nhi.nguyen16", "anh.pham24", "nam.ton", "huyen.truong"]
+  const teamMembers = ["toan.han", "quan.dang1", "quyen.hoang1", "phuong.hoang1", "thao.huynh4", "anh.nguyen80", "anh.nguyen22", "hung.nguyen32", "linh.nguyen35", "nhi.nguyen16", "anh.pham24", "nam.ton", "huyen.truong"]
     ;
 
   const [selectedOrder, setSelectedOrder] = useState<string[]>([]);
@@ -84,12 +83,12 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-soft flex flex-col items-center justify-center p-6">
-      <div className="text-center mb-12">
+    <div className="min-h-screen bg-gradient-soft flex flex-col items-center justify-center p-4">
+      <div className="text-center mb-8">
         {/* <h1 className="text-6xl font-bold mb-4 animate-float bg-gradient-celebration bg-clip-text text-transparent">
           🎂 Birthday Code Challenge 🎂
         </h1> */}
-        <p className="text-xl text-muted-foreground mb-8">
+        <p className="text-xl text-muted-foreground mt-8">
           Trí nhớ tốt mở ra điều lành...
         </p>
         {/* <div className="text-lg text-primary font-semibold">
@@ -97,8 +96,8 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
         </div> */}
       </div>
 
-      <div className="bg-card rounded-3xl p-8 shadow-celebration max-w-4xl w-full">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-8">
+      <div className="bg-card rounded-3xl p-5 shadow-celebration max-w-4xl w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-3">
           {teamMembers.map((member) => {
             const selectionNumber = getSelectionNumber(member);
             return (
@@ -107,7 +106,7 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
                 variant={getChipVariant(member)}
                 size="lg"
                 onClick={() => handleChipClick(member)}
-                className="relative h-16 text-lg font-semibold rounded-2xl"
+                className="relative h-14 text-md font-semibold rounded-2xl"
               >
                 {member}
                 {selectionNumber && (
@@ -122,7 +121,7 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
 
         <div className="text-center space-y-4">
           <div className="text-sm text-muted-foreground">
-            Selected: {selectedOrder.length} / {secretCode.length}
+            Đã chọn: {selectedOrder.length} / {secretCode.length}
           </div>
 
           <div className="flex flex-wrap justify-center gap-4">
@@ -133,7 +132,7 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
               className="rounded-2xl"
             >
               <RotateCcw className="w-5 h-5 mr-2" />
-              Reset
+              Chọn lại
             </Button>
 
             <Button
@@ -144,7 +143,7 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
               className="rounded-2xl animate-celebration"
             >
               <Unlock className="w-5 h-5 mr-2" />
-              Unlock Birthday Wishes
+              Mở khóa bí mật
             </Button>
           </div>
         </div>

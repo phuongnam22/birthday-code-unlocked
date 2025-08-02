@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-   base: '/birthday-code-unlocked/', // ⚠️ <-- thêm dòng này với đúng tên repo của bạn
+   base: '/', // ⚠️ <-- thêm dòng này với đúng tên repo của bạn
   server: {
     host: "::",
     port: 8080,
