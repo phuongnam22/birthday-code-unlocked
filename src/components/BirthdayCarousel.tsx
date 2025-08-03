@@ -95,8 +95,8 @@ const BirthdayCarousel: React.FC<BirthdayCarouselProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-soft flex flex-col p-6">
-      <div className="flex items-center justify-between w-full px-4 max-w-md mx-auto">
+    <div className="min-h-screen bg-gradient-soft flex flex-col p-6 w-screen">
+      <div className="flex items-center justify-between w-full px-4 mx-auto">
         <Button
           variant="outline"
           size="lg"
@@ -112,8 +112,8 @@ const BirthdayCarousel: React.FC<BirthdayCarouselProps> = ({ onBack }) => {
         </div>
       </div>
 
-      <div className="flex-1 flex items-center justify-between w-full px-4 pt-8 max-w-md mx-auto">
-        <div className="flex items-center gap-4 px-4 max-w-full">
+      <div className="flex-1 flex items-center justify-center w-full px-4 pt-8 mx-auto">
+        <div className="flex items-center gap-4 px-4 w-full justify-center">
           <Button
             variant="ghost"
             size="icon"
@@ -124,7 +124,7 @@ const BirthdayCarousel: React.FC<BirthdayCarouselProps> = ({ onBack }) => {
           </Button>
 
           <div
-            className="w-[90vw] max-w-[420px] h-[600px] bg-white rounded-2xl shadow-celebration flex flex-col justify-center items-center text-center p-6 cursor-pointer transition-opacity duration-500"
+            className="w-full max-w-[50vw] h-[400px] bg-white rounded-2xl shadow-celebration flex flex-col justify-center items-center text-center p-6 cursor-pointer transition-opacity duration-500 mx-auto"
             onClick={() => handleCardClick(currentIndex)}
           >
             {!openedCards.has(currentIndex) ? (
@@ -161,7 +161,7 @@ const BirthdayCarousel: React.FC<BirthdayCarouselProps> = ({ onBack }) => {
             variant="ghost"
             size="icon"
             onClick={prevCard}
-            className="w-8 h-8 p-0"
+            className="w-12 h-12 p-0"
           >
             <ChevronRight className="w-5 h-5 text-gray-700" />
           </Button>
