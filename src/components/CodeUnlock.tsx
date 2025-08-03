@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
+// import { useToast } from '@/hooks/use-toast';
 import { Unlock, RotateCcw } from 'lucide-react';
 
 interface CodeUnlockProps {
@@ -8,23 +8,30 @@ interface CodeUnlockProps {
 }
 
 const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
-  const { toast } = useToast();
+
+  // Popup state
+  const [popup, setPopup] = useState<{ open: boolean; title: string; description: string; success: boolean }>({
+    open: false,
+    title: '',
+    description: '',
+    success: false,
+  });
 
   // Secret code order
   const secretCode = [
   "toan.han",
   "anh.nguyen22",
-  // "quan.dang1",
-  // "nam.ton",
-  // "nhi.nguyen16",
-  // "hung.nguyen32",
-  // "thao.huynh4",
-  // "linh.nguyen35",
-  // "quyen.hoang1",
-  // "phuong.hoang1",
-  // "anh.pham24",
-  // "huyen.truong",
-  // "anh.nguyen80"
+  "quan.dang1",
+  "nam.ton",
+  "nhi.nguyen16",
+  "hung.nguyen32",
+  "thao.huynh4",
+  "linh.nguyen35",
+  "quyen.hoang1",
+  "phuong.hoang1",
+  "anh.pham24",
+  "huyen.truong",
+  "anh.nguyen80"
 ];
 
   // Team members
@@ -46,24 +53,28 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
       if (newOrder.length === secretCode.length) {
         // Check if the order is correct
         const isCorrect = newOrder.every((name, index) => name === secretCode[index]);
-
         if (isCorrect) {
           setIsUnlocked(true);
-          toast({
+          setPopup({
+            open: true,
             title: "🎉 Úm ba la!",
             description: "Tuyệt đỉnh! Anh hẳn là một manager có tâm!",
+            success: true,
           });
         } else {
-          toast({
+          setPopup({
+            open: true,
             title: "❌ Oops, chưa đúng rồi!",
             description: "Anh có trí nhớ tốt không nhỉ?",
-            variant: "destructive",
+            success: false,
           });
-          setSelectedOrder([]);
+          setTimeout(() => setSelectedOrder([]), 500);
         }
       }
     }
   };
+  // Popup close handler
+  const closePopup = () => setPopup(p => ({ ...p, open: false }));
 
   const resetSelection = () => {
     setSelectedOrder([]);
@@ -84,12 +95,28 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
 
   return (
     <div className="min-h-screen bg-gradient-soft flex flex-col items-center justify-center p-4">
+      {/* Popup Dialog */}
+      {popup.open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl p-8 max-w-xs w-full text-center animate-in fade-in-0 scale-in-95">
+            <div className="text-lg font-bold mb-3">{popup.title}</div>
+            <div className="text-lg mb-6">{popup.description}</div>
+            <button
+              className={`px-6 py-2 rounded-xl font-semibold text-white ${popup.success ? 'bg-green-500' : 'bg-red-500'} hover:opacity-90 transition`}
+              onClick={closePopup}
+              autoFocus
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      )}
       <div className="text-center mb-8">
         {/* <h1 className="text-6xl font-bold mb-4 animate-float bg-gradient-celebration bg-clip-text text-transparent">
           🎂 Birthday Code Challenge 🎂
         </h1> */}
         <p className="text-xl text-muted-foreground mt-8">
-          Trí nhớ tốt mở ra điều lành...
+          Mở khóa bí mật bằng cách chọn đúng chuỗi khóa
         </p>
         {/* <div className="text-lg text-primary font-semibold">
           Hint:... 🤔
