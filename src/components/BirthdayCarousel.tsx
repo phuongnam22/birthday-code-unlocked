@@ -124,7 +124,7 @@ const BirthdayCarousel: React.FC<BirthdayCarouselProps> = ({ onBack }) => {
           </Button>
 
           <div
-            className="w-full max-w-[50vw] h-[400px] bg-white rounded-2xl shadow-celebration flex flex-col justify-center items-center text-center p-6 cursor-pointer transition-opacity duration-500 mx-auto"
+            className="w-full max-w-[500px] h-[600px] bg-white rounded-2xl shadow-celebration flex flex-col justify-center items-center text-center p-6 cursor-pointer transition-opacity duration-500 mx-auto"
             onClick={() => handleCardClick(currentIndex)}
           >
             {!openedCards.has(currentIndex) ? (

@@ -98,7 +98,7 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
       {/* Popup Dialog */}
       {popup.open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl p-8 w-full text-center animate-in fade-in-0 scale-in-95">
+          <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl p-8 w-[400px] max-w-full text-center animate-in fade-in-0 scale-in-95">
             <div className="text-lg font-bold mb-3">{popup.title}</div>
             <div className="text-lg mb-6">{popup.description}</div>
             <button
@@ -123,7 +123,7 @@ const CodeUnlock: React.FC<CodeUnlockProps> = ({ onUnlock }) => {
         </div> */}
       </div>
 
-      <div className="bg-card rounded-3xl p-5 shadow-celebration w-full max-w-3xl mx-auto">
+      <div className="bg-card rounded-3xl p-5 shadow-celebration w-fullmax-w-3xl mx-auto">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-3">
           {teamMembers.map((member) => {
             const selectionNumber = getSelectionNumber(member);
