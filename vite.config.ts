@@ -5,16 +5,19 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-   base: '/birthday-code-unlocked/', // ⚠️ <-- thêm dòng này với đúng tên repo của bạn
+  // 👇 Quan trọng: đường dẫn phải trùng với tên repo
+  base: "/birthday-code-unlocked/",
+
   server: {
     host: "::",
     port: 8080,
   },
+
   plugins: [
     react(),
-    mode === 'development' &&
-    componentTagger(),
+    mode === "development" && componentTagger(),
   ].filter(Boolean),
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
